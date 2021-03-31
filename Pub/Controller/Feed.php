@@ -7,7 +7,11 @@ class Feed extends \XF\Pub\Controller\AbstractController
 
 public function actionIndex()
 {
-    $viewParams = [];
+    $repo = $this->repository('lulzapps\Feed:Entry');
+    $finder = $repo->findEntriesForFeedView();
+
+    $viewParams = [ 'feedEntries' => $finder->fetch() ];
+
     return $this->view('lulzapps\Feed:View', 'lulzapps_feed_view', $viewParams);
 }
 

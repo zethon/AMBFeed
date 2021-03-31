@@ -1,1 +1,54 @@
-<xf:title>Portal</xf:title>
+<xf:form action="{$confirmUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textarearow name="comment" autosize="false" autofocus="autofocus" />
+		</div>
+		<xf:submitrow submit="Submit" data-ajax-redirect="1" />
+	</div>
+	<xf:redirect />
+</xf:form>
+
+<xf:if is="$feedEntries is not empty">
+    <xf:foreach loop="$feedEntries" value="$feedEntry">
+        <xf:macro name="entry_block"
+            arg-entry="{$feedEntry}"
+            arg-user="{$feedEntry.User}"
+        />
+    </xf:foreach>
+<xf:else />
+    <div class="blockMessage">The feed is empty!</div>
+</xf:if>
+
+<xf:macro name="entry_block" arg-entry="!" arg-user="!" >
+    <xf:css src="message.less" />
+    <div class="message-inner">
+		<div class="message-avatar {{ ($xf.options.showMessageOnlineStatus && $user && $user.isOnline()) ? 'message-avatar--online' : '' }}">
+			<div class="message-avatar-wrapper">
+				<xf:avatar user="$user" size="m" defaultname="{$fallbackName}" itemprop="image" />
+				<xf:if is="$xf.options.showMessageOnlineStatus && $user && $user.isOnline()">
+					<span class="message-avatar-online" tabindex="0" data-xf-init="tooltip" data-trigger="auto" title="{{ phrase('online_now')|for_attr }}"></span>
+				</xf:if>
+			</div>
+		</div>
+
+        <div class="message-userDetails">
+			<h4 class="message-name">
+                <xf:if is="$user.username">
+                    <xf:username user="$user" rich="true" defaultname="{$fallbackName}" itemprop="name" />
+                <xf:else />
+                    {{ phrase('guest') }}
+                </xf:if>
+            </h4>
+			<!-- <xf:usertitle user="$user" tag="h5" class="message-userTitle" banner="true" itemprop="jobTitle" />
+			<xf:userbanners user="$user" tag="div" class="message-userBanner" itemprop="jobTitle" /> -->
+            <blockquote>{$entry.comment}</blockquote>
+		</div>
+			
+				<!-- <xf:macro template="message_macros" name="user_info" arg-user="{$user}"
+					arg-fallbackName="{$user.username}"/> -->
+			
+            
+        
+
+    </div>
+</xf:macro>

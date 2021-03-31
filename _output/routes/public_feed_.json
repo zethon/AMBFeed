@@ -1,0 +1,11 @@
+{
+    "route_type": "public",
+    "route_prefix": "feed",
+    "sub_name": "",
+    "format": "",
+    "build_class": "",
+    "build_method": "",
+    "controller": "lulzapps\\Feed:Feed",
+    "context": "home",
+    "action_prefix": ""
+}
