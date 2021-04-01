@@ -1,16 +1,30 @@
 <xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
-	<div class="block-container">
-		<div class="block-body">
-			<!-- <xf:textarearow name="comment" autosize="false" autofocus="autofocus" explain="Enter your message and click Submit" /> -->
-            <!-- <xf:textarea 
-                name="comment" 
-                autosize="true" 
-                rows="1" 
-                maxlength="255"
-                class="{{ $style == 'full' ? 'input--avatarSizeS' : '' }} js-editor"
-                data-xf-init="focus-trigger user-mentioner emoji-completer"
-                data-display="< :next" aria-labelledby="ctrl_message"
-                placeholder="write something interesting" /> -->
+
+    <div class="block-container">
+        <div class="block-body">
+            <xf:macro template="quick_reply_macros" name="body"
+                arg-placeholder="What's happening?"
+                arg-minHeight="20"
+                arg-showPreviewButton="{{ false }}"
+                arg-simple="{{ true }}"
+                arg-deferred="{{ true }}"
+                arg-simpleSubmit="{{ true }}"
+                arg-submitText="AMB It!" />
+        </div>
+    </div>
+	<!-- <xf:css src="message.less" />
+    <div class="message message--quickReply block-topRadiusContent">
+        <div class="message-inner">
+            <div class="message-cell message-cell--user">
+				<div class="message-user {{ $sticky.user_info ? 'is-sticky' : '' }}">
+					<div class="message-avatar">
+						<div class="message-avatar-wrapper">
+							<xf:set var="$user" value="{{ $xf.visitor.user_id ? $xf.visitor : null }}" />
+							<xf:avatar user="$user" size="{{ $simple ? 's' : 'm' }}" defaultname="" />
+						</div>
+					</div>
+				</div>
+			</div>
                 <div class="message-editorWrapper">
                     <div class="editorPlaceholder" data-xf-click="editor-placeholder">
                         <div class="editorPlaceholder-editor is-hidden">
@@ -30,10 +44,11 @@
                     </div>
                 </div>
 		</div>
-		<!-- <xf:submitrow submit="Submit" data-ajax-redirect="1" /> -->
 	</div>
-	<xf:redirect />
+	<xf:redirect />  -->
 </xf:form>
+
+<hr class="menu-separator" />
 
 <xf:if is="$feedEntries is not empty">
     <xf:foreach loop="$feedEntries" value="$feedEntry">
@@ -72,4 +87,5 @@
             </div>
 		</div>
     </div>
+    <hr class="menu-separator" />
 </xf:macro>

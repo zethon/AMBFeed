@@ -21,7 +21,7 @@ public function actionSubmit()
     ]);
 
     $input['user_id'] = $user->user_id;
-    $input['comment'] = $message = $this->plugin('XF:Editor')->fromInput('comment');
+    $input['comment'] = $message = $this->plugin('XF:Editor')->fromInput('message');
     $entry = $this->em()->create('lulzapps\Feed:Entry');
 
     $form = $this->formAction();
