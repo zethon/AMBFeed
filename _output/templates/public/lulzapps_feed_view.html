@@ -1,6 +1,9 @@
-<xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
 
-    <div class="block-container">
+
+<xf:css src="feed.less" />
+
+<xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
+    <div class="feed-entry-container">
         <div class="block-body">
             <xf:macro template="quick_reply_macros" name="body"
                 arg-placeholder="What's happening?"
@@ -12,47 +15,11 @@
                 arg-submitText="AMB It!" />
         </div>
     </div>
-	<!-- <xf:css src="message.less" />
-    <div class="message message--quickReply block-topRadiusContent">
-        <div class="message-inner">
-            <div class="message-cell message-cell--user">
-				<div class="message-user {{ $sticky.user_info ? 'is-sticky' : '' }}">
-					<div class="message-avatar">
-						<div class="message-avatar-wrapper">
-							<xf:set var="$user" value="{{ $xf.visitor.user_id ? $xf.visitor : null }}" />
-							<xf:avatar user="$user" size="{{ $simple ? 's' : 'm' }}" defaultname="" />
-						</div>
-					</div>
-				</div>
-			</div>
-                <div class="message-editorWrapper">
-                    <div class="editorPlaceholder" data-xf-click="editor-placeholder">
-                        <div class="editorPlaceholder-editor is-hidden">
-                            <xf:editor name="comment"
-                                data-min-height="40"
-                                placeholder=" write something interesting"
-                                previewable="0"
-                                data-deferred="on" />
-
-                            <div class="u-inputSpacer">
-                                <xf:button type="submit" class="button--primary" icon="reply">Submit</xf:button>
-                            </div>
-                        </div>
-                        <div class="editorPlaceholder-placeholder">
-                            <div class="input"><span class="u-muted"> write something interesting</span></div>
-                        </div>
-                    </div>
-                </div>
-		</div>
-	</div>
-	<xf:redirect />  -->
 </xf:form>
-
-<hr class="menu-separator" />
 
 <xf:if is="$feedEntries is not empty">
     <xf:foreach loop="$feedEntries" value="$feedEntry">
-        <xf:macro name="entry_block"
+        <xf:macro name="entry_block2"
             arg-entry="{$feedEntry}"
             arg-user="{$feedEntry.User}"
         />
@@ -61,20 +28,73 @@
     <div class="blockMessage">The feed is empty!</div>
 </xf:if>
 
+
+<xf:macro name="entry_block2" arg-entry="!" arg-user="!">
+    <div class="feed-entry-container">
+        <div class="message-inner">
+            <div class="message-cell message-cell--user">
+                <header itemscope itemtype="https://schema.org/Person" class="message-user">
+                    <meta itemprop="name" content="{{ $user.username ?: 'Guest' }}">
+                    <div class="message-avatar">
+                        <div class="message-avatar-wrapper">
+                            <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
+                        </div>
+                    </div>
+                    <span class="message-userArrow"></span>
+                </header>
+            </div>
+
+            <div class="message-cell message-cell--main">
+                <div class="message-main js-quickEditTarget">
+                    <div class="message-content js-messageContent">
+
+                        <header class="message-attribution message-attribution--plain">
+                            <ul class="listInline listInline--bullet">
+                                <li class="message-attribution-user">
+                                    <xf:avatar user="$user" size="xxs" />
+                                    <h4 class="attribution">
+                                        <xf:username user="$user" rich="true" />
+                                    </h4>
+                                </li>
+                                <li><a href="{{ link('profile-posts', $profilePost) }}" class="u-concealed" rel="nofollow"><xf:date time="$profilePost.post_date" /></a></li>
+                            </ul>
+                        </header>
+
+                        <article class="message-body">
+                            {$entry.comment}
+                        </article>
+                    </div>
+                    <footer class="message-footer">
+                        <div class="message-actionBar actionBar">
+                            <div class="actionBar-set actionBar-set--internal">
+                                <a href="#" class="actionBar-action"><xf:fa icon="fa-thumbs-up"/> Like</a>
+                                <a href="#" class="actionBar-action"><xf:fa icon="fa-thumbs-down"/> Dislike</a>
+                                <a href="#" class="actionBar-action"><xf:fa icon="fa-reply"/> Reply</a>
+                                <a href="#" class="actionBar-action"><xf:fa icon="fa-newspaper"/> Discuss</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</xf:macro>
+
 <xf:macro name="entry_block" arg-entry="!" arg-user="!" >
-    <!-- <xf:css src="message.less" /> -->
-    <div class="block-container">
-		<div class="message-avatar {{ ($xf.options.showMessageOnlineStatus && $user && $user.isOnline()) ? 'message-avatar--online' : '' }}">
-			<div class="message-avatar-wrapper">
-				<xf:avatar user="$user" size="m" defaultname="{$fallbackName}" itemprop="image" />
-				<xf:if is="$xf.options.showMessageOnlineStatus && $user && $user.isOnline()">
-					<span class="message-avatar-online" tabindex="0" data-xf-init="tooltip" data-trigger="auto" title="{{ phrase('online_now')|for_attr }}"></span>
-				</xf:if>
-			</div>
-		</div>
+    <div class="feed-entry-container">
+        <div class="{{ ($xf.options.showMessageOnlineStatus && $user && $user.isOnline()) ? 'message-avatar--online' : '' }}">
+            <div class="message-avatar-wrapper">
+                <xf:avatar user="$user" size="s" defaultname="{$fallbackName}" itemprop="image" />
+                <xf:if is="$xf.options.showMessageOnlineStatus && $user && $user.isOnline()">
+                    <span class="message-avatar-online" tabindex="0" data-xf-init="tooltip" data-trigger="auto"
+                        title="{{ phrase('online_now')|for_attr }}"></span>
+                </xf:if>
+            </div>
+        </div>
 
         <div class="message-userDetails">
-			<h4 class="message-name">
+            <h4 class="message-name">
                 <xf:if is="$user.username">
                     <xf:username user="$user" rich="true" defaultname="{$fallbackName}" itemprop="name" />
                 <xf:else />
@@ -85,7 +105,7 @@
             <div class="block-body">
                 <blockquote>{$entry.comment}</blockquote>
             </div>
-		</div>
+        </div>
     </div>
-    <hr class="menu-separator" />
+    <hr class="block-separator" />
 </xf:macro>

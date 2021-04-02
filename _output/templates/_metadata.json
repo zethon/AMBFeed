@@ -1,7 +1,17 @@
 {
+    "public/FEED_CONTAINER.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b85586ce0cde2d2cae9fe925a5a6e5f4"
+    },
+    "public/feed.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b4d0486706f10650e1f6dad63388b06d"
+    },
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "027b94dede18991bd984bb9316d387b3"
+        "hash": "b979cca0fa133af5ff3615a2e31360c3"
     }
 }
