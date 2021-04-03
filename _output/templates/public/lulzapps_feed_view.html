@@ -63,7 +63,7 @@
                         </header>
 
                         <article class="message-body" style="padding-bottom:5px;">
-                            {$entry.comment}
+                           {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
                         </article>
                     </div>
                     <hr class="block-separator"/>
