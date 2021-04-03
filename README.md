@@ -1,4 +1,4 @@
-# AMBFeed
+# XenFeed
 
 This addon gives XenForo Twitter-like functionality that is separate from the forum functionality. This addon was written for XenForo 2.x. 
 
