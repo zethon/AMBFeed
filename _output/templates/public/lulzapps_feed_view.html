@@ -1,4 +1,4 @@
-
+<xf:page option="template">FEED_CONTAINER</xf:page>
 
 <xf:css src="feed.less" />
 
@@ -56,24 +56,32 @@
                                         <xf:username user="$user" rich="true" />
                                     </h4>
                                 </li>
-                                <li><a href="{{ link('profile-posts', $profilePost) }}" class="u-concealed" rel="nofollow"><xf:date time="$profilePost.post_date" /></a></li>
+                                <li>
+                                    <a href="{{ link('profile-posts', $profilePost) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
+                                </li>
                             </ul>
                         </header>
 
-                        <article class="message-body">
+                        <article class="message-body" style="padding-bottom:5px;">
                             {$entry.comment}
                         </article>
                     </div>
-                    <footer class="message-footer">
+                    <hr class="block-separator"/>
+                    <div class="message-footer">
                         <div class="message-actionBar actionBar">
+                            <div class="actionBar-set actionBar-set--external">
+                                <div class="actionBar-action">0 Likes</div>
+                                <div class="actionBar-action">0 Disikes</div>
+                                <div class="actionBar-action">0 Replies</div>
+                            </div>
                             <div class="actionBar-set actionBar-set--internal">
-                                <a href="#" class="actionBar-action"><xf:fa icon="fa-thumbs-up"/> Like</a>
-                                <a href="#" class="actionBar-action"><xf:fa icon="fa-thumbs-down"/> Dislike</a>
-                                <a href="#" class="actionBar-action"><xf:fa icon="fa-reply"/> Reply</a>
-                                <a href="#" class="actionBar-action"><xf:fa icon="fa-newspaper"/> Discuss</a>
+                                <a href="#" class="actionBar-action" title="Like"><xf:fa icon="fa-thumbs-up"/></a>
+                                <a href="#" class="actionBar-action" title="Dislike"><xf:fa icon="fa-thumbs-down"/></a>
+                                <a href="#" class="actionBar-action" title="Reply"><xf:fa icon="fa-reply"/></a>
+                                <a href="#" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a>
                             </div>
                         </div>
-                    </footer>
+                    </div>
                 </div>
             </div>
         </div>
