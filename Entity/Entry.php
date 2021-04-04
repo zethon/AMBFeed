@@ -70,7 +70,7 @@ public static function getStructure(Structure $structure)
             'user_id' => ['type' => self::UINT, 'required' => true],
             'comment' => ['type' => self::STR, 'required' => true, 'maxLength' => 255],
             'date' => ['type' => self::UINT, 'default' => time()],
-            'reply_to' => ['type' => self::UINT, 'required' => false],
+            'reply_to' => ['type' => self::UINT, 'required' => false, 'default' => 0],
         ];
     $structure->getters = 
         [
