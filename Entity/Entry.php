@@ -7,7 +7,7 @@ use XF\Mvc\Entity\Structure;
 class Entry extends \XF\Mvc\Entity\Entity
 {
 
-public function getLikes()
+public function getLikesCount()
 {
     return $this->db()->fetchOne("
         SELECT COUNT(*)
@@ -20,7 +20,7 @@ public function getLikes()
     $this->entry_id);
 }
 
-public function getDislikes()
+public function getDislikesCount()
 {
     return $this->db()->fetchOne("
         SELECT COUNT(*)
@@ -33,7 +33,7 @@ public function getDislikes()
     $this->entry_id);
 }
 
-public function getReplies()
+public function getRepliesCount()
 {
     return $this->db()->fetchOne("
         SELECT COUNT(*)
@@ -61,9 +61,9 @@ public static function getStructure(Structure $structure)
         ];
     $structure->getters = 
         [
-            'likes' => true,
-            'dislikes' => true,
-            'replies' => true
+            'likes_count' => true,
+            'dislikes_count' => true,
+            'replies_count' => true
         ];
     $structure->relations['User'] = 
         [
