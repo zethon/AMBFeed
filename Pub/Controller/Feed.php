@@ -5,6 +5,30 @@ namespace lulzapps\Feed\Pub\Controller;
 class Feed extends \XF\Pub\Controller\AbstractController
 {
 
+public function actionLike()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    return $this->message('actionLike: ' . $entry_id);
+}
+
+public function actionDislike()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    return $this->message('actionDislike: ' . $entry_id);
+}
+
+public function actionReply()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    return $this->message('actionReply: ' . $entry_id);
+}
+
+public function actionDiscuss()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    return $this->message('actionDiscuss: ' . $entry_id);
+}
+
 // http://localhost/index.php?feed/submit
 public function actionSubmit()
 {

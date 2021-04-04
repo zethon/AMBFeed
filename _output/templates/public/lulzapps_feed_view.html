@@ -75,10 +75,10 @@
                                 <div class="actionBar-action">{$entry.replies_count} Replies</div>
                             </div>
                             <div class="actionBar-set actionBar-set--internal">
-                                <a href="#" class="actionBar-action" title="Like"><xf:fa icon="fa-thumbs-up"/></a>
-                                <a href="#" class="actionBar-action" title="Dislike"><xf:fa icon="fa-thumbs-down"/></a>
-                                <a href="#" class="actionBar-action" title="Reply"><xf:fa icon="fa-reply"/></a>
-                                <a href="#" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a>
+                                <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="fa-thumbs-up"/></a>
+                                <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Dislike"><xf:fa icon="fa-thumbs-down"/></a>
+                                <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Reply"><xf:fa icon="fa-reply"/></a>
+                                <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a>
                             </div>
                         </div>
                     </div>
