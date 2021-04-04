@@ -25,6 +25,7 @@ class Setup extends \XF\AddOn\AbstractSetup
                 $table->addColumn('user_id', 'int');
                 $table->addColumn('comment', 'varchar', 255)->setDefault('');
                 $table->addColumn('date', 'int');
+                $table->addColumn('reply_to', 'int');
                 $table->addPrimaryKey('entry_id');
             });
     }

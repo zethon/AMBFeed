@@ -5,16 +5,96 @@ namespace lulzapps\Feed\Pub\Controller;
 class Feed extends \XF\Pub\Controller\AbstractController
 {
 
-public function actionLike()
+private function canSubmitReaction($reaction)
 {
     $entry_id = $this->filter('entry_id', 'uint');
-    return $this->message('actionLike: ' . $entry_id);
+    $user_id = (\XF::visitor())->user_id;
+
+    if ($user_id <= 0)
+    {
+        throw $this->exception($this->error('Invalid user'));
+    }
+
+    $finder = $this->finder('lulzapps\Feed:Entry');
+    $finder->where('entry_id', $entry_id);
+    $finder->where('user_id', $user_id);
+    if ($finder->fetchOne())
+    {
+        // user is trying to like their own message
+        throw $this->exception($this->error('Cannot react to own feed message'));
+    }
+
+    $finder = $this->finder('lulzapps\Feed:Reaction');
+    $finder->where('entry_id', $entry_id);
+    $finder->where('user_id', $user_id);
+    $finder->where('reaction', $reaction);
+    if ($finder->fetchOne())
+    {
+        // user already reacted this way to this post
+        throw $this->exception($this->error('Duplicate reaction to a feed message'));
+    }
+
+    return true;
+}
+
+public function actionLike()
+{
+    if (!$this->canSubmitReaction('like'))
+    {
+        throw $this->exception($this->error('Invalid action!'));
+    }
+
+    $input = $this->filter(
+        [
+            'entry_id' => 'uint',
+            'user_id' => 'uint',
+            'reaction' => 'str'
+        ]);
+
+    $user_id = (\XF::visitor())->user_id;
+    $entry_id = $this->filter('entry_id', 'uint');
+    $returnUrl = $this->buildLink('feed');
+
+    $input['entry_id'] = $entry_id;
+    $input['user_id'] = $user_id;
+    $input['reaction'] = 'like';
+    
+    $reaction = $this->em()->create('lulzapps\Feed:Reaction');
+
+    $form = $this->formAction();
+    $form->basicEntitySave($reaction, $input)->run();
+
+    return $this->redirect($returnUrl, "Your feedback has been saved");
 }
 
 public function actionDislike()
 {
+    if (!$this->canSubmitReaction('dislike'))
+    {
+        throw $this->exception($this->error('Invalid action!'));
+    }
+
+    $input = $this->filter(
+        [
+            'entry_id' => 'uint',
+            'user_id' => 'uint',
+            'reaction' => 'str'
+        ]);
+
+    $user_id = (\XF::visitor())->user_id;
     $entry_id = $this->filter('entry_id', 'uint');
-    return $this->message('actionDislike: ' . $entry_id);
+    $returnUrl = $this->buildLink('feed');
+
+    $input['entry_id'] = $entry_id;
+    $input['user_id'] = $user_id;
+    $input['reaction'] = 'dislike';
+    
+    $reaction = $this->em()->create('lulzapps\Feed:Reaction');
+
+    $form = $this->formAction();
+    $form->basicEntitySave($reaction, $input)->run();
+
+    return $this->redirect($returnUrl, "Your feedback has been saved");
 }
 
 public function actionReply()

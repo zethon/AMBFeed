@@ -1,10 +1,10 @@
 <?php
 
-namespace lulzapps\Feed\Reaction;
+namespace lulzapps\Feed\Entity;
 
 use XF\Mvc\Entity\Structure;
 
-class Entry extends \XF\Mvc\Entity\Entity
+class Reaction extends \XF\Mvc\Entity\Entity
 {
 
 public static function getStructure(Structure $structure)
