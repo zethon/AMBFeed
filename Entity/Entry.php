@@ -7,6 +7,19 @@ use XF\Mvc\Entity\Structure;
 class Entry extends \XF\Mvc\Entity\Entity
 {
 
+public function getUserReaction()
+{
+    $user_id = (\XF::visitor())->user_id;
+    $finder = $this->finder('lulzapps\Feed:Reaction');
+    $finder->where('entry_id', $this->entry_id);
+    $finder->where('user_id', $user_id);
+
+    $reaction = $finder->fetchOne();
+
+    if (!$reaction) return '';
+    return $reaction['reaction'];
+}
+
 public function getLikesCount()
 {
     return $this->db()->fetchOne("

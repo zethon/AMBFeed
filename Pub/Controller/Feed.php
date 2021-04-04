@@ -5,28 +5,6 @@ namespace lulzapps\Feed\Pub\Controller;
 class Feed extends \XF\Pub\Controller\AbstractController
 {
 
-private function canSubmitReaction()
-{
-    $returnUrl = $this->buildLink('feed');
-    $entry_id = $this->filter('entry_id', 'uint');
-    $user_id = (\XF::visitor())->user_id;
-    if ($user_id <= 0)
-    {
-        return array(false, 'Invalid user');
-    }
-
-    $finder = $this->finder('lulzapps\Feed:Entry');
-    $finder->where('entry_id', $entry_id);
-    $finder->where('user_id', $user_id);
-    if ($finder->fetchOne())
-    {
-        // user is trying to like their own message
-        return array(false, 'Cannot react to own feed message');
-    }
-
-    return array(true, '');
-}
-
 private function saveReaction($reactionType)
 {
     $user_id = (\XF::visitor())->user_id;
@@ -38,9 +16,16 @@ private function saveReaction($reactionType)
     $reaction = $finder->fetchOne();
     if ($reaction)
     {
-        $reaction['reaction'] = $reactionType;
-        $form = $this->formAction();
-        $form->saveEntity($reaction)->run();
+        if ($reaction['reaction'] == $reactionType)
+        {
+            $reaction->delete();
+        }
+        else
+        {
+            $reaction['reaction'] = $reactionType;
+            $form = $this->formAction();
+            $form->saveEntity($reaction)->run();
+        }
     }
     else
     {
@@ -63,10 +48,10 @@ private function saveReaction($reactionType)
 
 public function actionLike()
 {
-    list($result, $errortxt) = $this->canSubmitReaction();
-    if (!$result)
+    $user_id = (\XF::visitor())->user_id;
+    if ($user_id <= 0)
     {
-        return $this->message($errortxt);
+        return $this->error('invalid user');
     }
 
     $this->saveReaction('like');
@@ -77,10 +62,10 @@ public function actionLike()
 
 public function actionDislike()
 {
-    list($result, $errortxt) = $this->canSubmitReaction();
-    if (!$result)
+    $user_id = (\XF::visitor())->user_id;
+    if ($user_id <= 0)
     {
-        return $this->message($errortxt);
+        return $this->error('invalid user');
     }
 
     $this->saveReaction('dislike');
