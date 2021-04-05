@@ -85,6 +85,13 @@ public static function getStructure(Structure $structure)
             'conditions' => 'user_id',
             'primary' => true
         ];
+    $structure->relations['Original'] = 
+        [
+            'entity' => 'lulzapps\Feed:Entry',
+            'type' => self::TO_ONE,
+            'conditions' => [ ['entry_id', '=', '$reply_to'] ],
+            'primary' => true
+        ];
 
     return $structure;
 }

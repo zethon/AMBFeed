@@ -22,6 +22,7 @@
         <xf:macro name="entry_block2"
             arg-entry="{$feedEntry}"
             arg-user="{$feedEntry.User}"
+            arg-preview="{{false}}"
         />
     </xf:foreach>
 <xf:else />
@@ -29,20 +30,14 @@
 </xf:if>
 
 
-<xf:macro name="entry_block2" arg-entry="!" arg-user="!">
+<xf:macro name="entry_block2" arg-entry="!" arg-user="!" arg-preview="{{false}}">
     <div class="feed-entry-container">
         <div class="message-inner">
-            <div class="message-cell message-cell--user">
-                <header itemscope itemtype="https://schema.org/Person" class="message-user">
-                    <meta itemprop="name" content="{{ $user.username ?: 'Guest' }}">
-                    <div class="message-avatar">
-                        <div class="message-avatar-wrapper">
-                            <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
-                        </div>
+                <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
+                    <div class="message-avatar-wrapper">
+                        <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
                     </div>
-                    <span class="message-userArrow"></span>
-                </header>
-            </div>
+                </div>
 
             <div class="message-cell message-cell--main">
                 <div class="message-main js-quickEditTarget">
@@ -66,56 +61,29 @@
                            {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
                         </article>
                     </div>
-                    <hr class="block-separator"/>
-                    <div class="message-footer">
-                        <div class="message-actionBar actionBar">
-                            <div class="actionBar-set actionBar-set--external">
-                                <div class="actionBar-action">{$entry.likes_count} Likes</div>
-                                <div class="actionBar-action">{$entry.dislikes_count} Disikes</div>
-                                <div class="actionBar-action">{$entry.replies_count} Replies</div>
-                            </div>
-                                <div class="actionBar-set actionBar-set--internal">
-                                    <xf:set var="$like_prefix" value="{{ $entry->getUserReaction() == 'like' ? 'fa ' : '' }}" />
-                                    <xf:set var="$dislike_prefix" value="{{ $entry->getUserReaction() == 'dislike' ? 'fa ' : '' }}" />
-                                    <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="{$like_prefix}fa-thumbs-up"/></a>
-                                    <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
-                                    <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Reply"><xf:fa icon="fa-reply"/></a>
-                                    <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a>
+                    <xf:if is="{{!$preview}}">
+                        <hr class="block-separator"/>
+                        <div class="message-footer">
+                            <div class="message-actionBar actionBar">
+                                <div class="actionBar-set actionBar-set--external">
+                                    <div class="actionBar-action">{$entry.likes_count} Likes</div>
+                                    <div class="actionBar-action">{$entry.dislikes_count} Disikes</div>
+                                    <div class="actionBar-action">{$entry.replies_count} Replies</div>
                                 </div>
-                        </div>
+                                    <div class="actionBar-set actionBar-set--internal">
+                                        <xf:set var="$like_prefix" value="{{ $entry->getUserReaction() == 'like' ? 'fa ' : '' }}" />
+                                        <xf:set var="$dislike_prefix" value="{{ $entry->getUserReaction() == 'dislike' ? 'fa ' : '' }}" />
+                                        <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="{$like_prefix}fa-thumbs-up"/></a>
+                                        <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action"  title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
+                                        <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Reply"><xf:fa icon="fa-reply"/></a>
+                                        <!-- <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a> -->
+                                    </div>
+                            </div>
                     </div>
+                    </xf:if>
                 </div>
             </div>
         </div>
     </div>
     <br/>
-</xf:macro>
-
-<xf:macro name="entry_block" arg-entry="!" arg-user="!" >
-    <div class="feed-entry-container">
-        <div class="{{ ($xf.options.showMessageOnlineStatus && $user && $user.isOnline()) ? 'message-avatar--online' : '' }}">
-            <div class="message-avatar-wrapper">
-                <xf:avatar user="$user" size="s" defaultname="{$fallbackName}" itemprop="image" />
-                <xf:if is="$xf.options.showMessageOnlineStatus && $user && $user.isOnline()">
-                    <span class="message-avatar-online" tabindex="0" data-xf-init="tooltip" data-trigger="auto"
-                        title="{{ phrase('online_now')|for_attr }}"></span>
-                </xf:if>
-            </div>
-        </div>
-
-        <div class="message-userDetails">
-            <h4 class="message-name">
-                <xf:if is="$user.username">
-                    <xf:username user="$user" rich="true" defaultname="{$fallbackName}" itemprop="name" />
-                <xf:else />
-                    {{ phrase('guest') }}
-                </xf:if>
-            </h4>
-
-            <div class="block-body">
-                <blockquote>{$entry.comment}</blockquote>
-            </div>
-        </div>
-    </div>
-    <hr class="block-separator" />
 </xf:macro>

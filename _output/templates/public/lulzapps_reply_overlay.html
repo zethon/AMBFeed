@@ -1,0 +1,19 @@
+<xf:title>Replying to {{ $entry.User.username }}</xf:title>
+
+<xf:css src="feed.less" />
+
+<xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
+    <xf:hiddenval name="reply_to">{$entry.entry_id}</xf:hiddenval>
+    <div class="feed-entry-container">
+        <div class="block-body">
+            <xf:macro template="quick_reply_macros" name="body"
+                arg-placeholder="What's happening?"
+                arg-minHeight="20"
+                arg-showPreviewButton="{{ false }}"
+                arg-simple="{{ true }}"
+                arg-deferred="{{ false }}"
+                arg-simpleSubmit="{{ true }}"
+                arg-submitText="AMB It!" />
+        </div>
+    </div>
+</xf:form>

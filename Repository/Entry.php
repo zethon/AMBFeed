@@ -17,14 +17,8 @@ class Entry extends Repository
         $finder = $this->finder('lulzapps\Feed:Entry');
         $finder
             ->setDefaultOrder('date', 'DESC')
-            ->with('User');
-            // ->with('Thread.User')
-            // ->with('Thread.Forum', true)
-            // ->with('Thread.Forum.Node.Permissions|' . $visitor->permission_combination_id)
-            // ->with('Thread.FirstPost', true)
-            // ->with('Thread.FirstPost.User')
-            // ->where('Thread.discussion_type', '<>', 'redirect')
-            // ->where('Thread.discussion_state', 'visible');
+            ->with('User')
+            ->with('Original', false);
 
         return $finder;
     }

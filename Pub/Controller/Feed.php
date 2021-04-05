@@ -77,7 +77,20 @@ public function actionDislike()
 public function actionReply()
 {
     $entry_id = $this->filter('entry_id', 'uint');
-    return $this->message('actionReply: ' . $entry_id);
+    $finder = $this->finder('lulzapps\Feed:Entry');
+    $finder
+        ->with('User')
+        ->where('entry_id', $entry_id);
+
+    $entry = $finder->fetchOne();
+
+    $viewParams = 
+        [
+            'entry' => $entry,
+            'submitUrl' => $this->buildLink('feed/submit')
+        ];
+
+    return $this->view('lulzapps\Feed:ReplyOverlay', 'lulzapps_reply_overlay', $viewParams);
 }
 
 public function actionDiscuss()
@@ -89,7 +102,6 @@ public function actionDiscuss()
 // http://localhost/index.php?feed/submit
 public function actionSubmit()
 {
-    // return $this->message('Hello world!111');
     $user = \XF::visitor();
     if ($user->user_id <= 0)
     {
@@ -98,11 +110,23 @@ public function actionSubmit()
 
     $input = $this->filter([
         'user_id' => 'uint',
-        'comment' => 'str'
+        'comment' => 'str',
+        'reply_to' => 'uint'
     ]);
 
     $input['user_id'] = $user->user_id;
     $input['comment'] = $message = $this->plugin('XF:Editor')->fromInput('message');
+    
+    $reply_to = $this->filter('reply_to', 'uint');
+    if ($reply_to && $reply_to > 0)
+    {
+        $input['reply_to'] = $reply_to;
+    }
+    else
+    {
+        $input['reply_to'] = 0;
+    }
+
     $entry = $this->em()->create('lulzapps\Feed:Entry');
 
     $form = $this->formAction();
@@ -116,12 +140,10 @@ public function actionIndex()
     $repo = $this->repository('lulzapps\Feed:Entry');
     $finder = $repo->findEntriesForFeedView();
 
-    $submitUrl = $this->buildLink('feed/submit');
-
     $viewParams = 
         [ 
             'feedEntries' => $finder->fetch(),
-            'submitUrl' => $submitUrl
+            'submitUrl' => $this->buildLink('feed/submit')
         ];
 
     return $this->view('lulzapps\Feed:View', 'lulzapps_feed_view', $viewParams);

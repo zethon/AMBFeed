@@ -12,6 +12,11 @@
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "20ab204a2e6afa1849791ee10ca92b73"
+        "hash": "99fcabc723234eefad533b5e860b0afd"
+    },
+    "public/lulzapps_reply_overlay.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "fb605687d757984a94390f7e627ae29c"
     }
 }
