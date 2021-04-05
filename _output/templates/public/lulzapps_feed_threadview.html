@@ -1,0 +1,78 @@
+<xf:page option="template">FEED_CONTAINER</xf:page>
+
+<xf:css src="message.less" />
+<xf:css src="feed.less" />
+<xf:css src="bb_code.less" />
+
+<br/>
+
+<div class="feed-entry-container">
+    <div class="message-inner">
+            <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
+                <div class="message-avatar-wrapper">
+                    <xf:avatar user="$entry.User" size="s" defaultname="{$entry.User.username}" itemprop="image" />
+                </div>
+            </div>
+
+            <div class="message-cell message-cell--main">
+                <div class="message-main js-quickEditTarget">
+                    <div class="message-content js-messageContent">
+                        <header class="message-attribution message-attribution--plain">
+                            <ul class="listInline listInline--bullet">
+                                <li class="message-attribution-user">
+                                    <xf:avatar user="$entry.User" size="xxs" />
+                                    <h4 class="attribution">
+                                        <xf:username user="$entry.User" rich="true" />
+                                    </h4>
+                                </li>
+                                <li>
+                                    <a href="{{ link('feed/threadview', null, {'entry_id':$entry.entry_id}) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
+                                </li>
+                            </ul>
+                        </header>
+
+                        <xf:if is="{{$entry.Original.entry_id > 0}}">
+                            <xf:macro 
+                                template="lulzapps_feed_view" 
+                                name="reply_preview"
+                                arg-entry="{$entry.Original}"
+                                arg-user="{$entry.Original.User}"
+                                arg-preview="{{true}}"/>
+                        </xf:if>
+
+                    <article class="message-body" style="padding-bottom:5px;">
+                       {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+                    </article>
+                </div>
+
+                <div class="message-footer">
+                    <div class="message-actionBar actionBar">
+                        <div class="actionBar-set actionBar-set--external">
+                            <div class="actionBar-action">{$entry.likes_count} Likes</div>
+                            <div class="actionBar-action">{$entry.dislikes_count} Disikes</div>
+                            <div class="actionBar-action">{$entry.replies_count} Replies</div>
+                        </div>
+                            <div class="actionBar-set actionBar-set--internal">
+                                <xf:set var="$like_prefix" value="{{ $entry->getUserReaction() == 'like' ? 'fa ' : '' }}" />
+                                <xf:set var="$dislike_prefix" value="{{ $entry->getUserReaction() == 'dislike' ? 'fa ' : '' }}" />
+                                <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="{$like_prefix}fa-thumbs-up"/></a>
+                                <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action"  title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
+                                <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Reply"><xf:fa icon="fa-reply"/></a>
+                                <!-- <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a> -->
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<xf:foreach loop="$entry.Replies" value="$reply">
+    <xf:macro 
+        template="lulzapps_feed_view"
+        name="entry_block2"
+        arg-entry="{$reply}"
+        arg-user="{$reply.User}"
+        arg-showOriginal="{{false}}"
+    />
+</xf:foreach>

@@ -135,6 +135,25 @@ public function actionSubmit()
     return $this->redirect($returnUrl, "Your feedback has been saved");
 }
 
+public function actionThreadView()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    $finder = $this->finder('lulzapps\Feed:Entry');
+    $finder
+        ->with('User')
+        ->with('Original')
+        ->where('entry_id', $entry_id);
+    
+        $entry = $finder->fetchOne();
+
+    $viewParams = 
+        [ 
+            'entry' => $entry
+
+        ];
+    return $this->view('lulzapps\Feed:View', 'lulzapps_feed_threadview', $viewParams);
+}
+
 public function actionIndex()
 {
     $page = $this->filter('page', 'uint');

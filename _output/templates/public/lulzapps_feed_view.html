@@ -39,19 +39,18 @@
     <div class="blockMessage">The feed is empty!</div>
 </xf:if>
 
-<xf:macro name="entry_block2" arg-entry="!" arg-user="!" arg-preview="{{false}}">
+<xf:macro name="entry_block2" arg-entry="!" arg-user="!" arg-preview="{{false}}" arg-showOriginal="{{true}}">
     <div class="feed-entry-container">
         <div class="message-inner">
-                <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
-                    <div class="message-avatar-wrapper">
-                        <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
-                    </div>
+            <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
+                <div class="message-avatar-wrapper">
+                    <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
                 </div>
+            </div>
 
             <div class="message-cell message-cell--main">
                 <div class="message-main js-quickEditTarget">
                     <div class="message-content js-messageContent">
-
                         <header class="message-attribution message-attribution--plain">
                             <ul class="listInline listInline--bullet">
                                 <li class="message-attribution-user">
@@ -61,16 +60,18 @@
                                     </h4>
                                 </li>
                                 <li>
-                                    <a href="{{ link('profile-posts', $profilePost) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
+                                    <a href="{{ link('feed/threadview', null, {'entry_id':$entry.entry_id}) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
                                 </li>
                             </ul>
                         </header>
 
-                        <xf:if is="{{$entry.Original.entry_id > 0}}">
-                            <xf:macro name="reply_preview"
-                                arg-entry="{$entry.Original}"
-                                arg-user="{$entry.Original.User}"
-                                arg-preview="{{true}}"/>
+                        <xf:if is="{{$showOriginal}}">
+                            <xf:if is="{{$entry.Original.entry_id > 0}}">
+                                <xf:macro name="reply_preview"
+                                    arg-entry="{$entry.Original}"
+                                    arg-user="{$entry.Original.User}"
+                                    arg-preview="{{true}}"/>
+                            </xf:if>
                         </xf:if>
 
                         <article class="message-body" style="padding-bottom:5px;">
@@ -85,21 +86,21 @@
                                     <div class="actionBar-action">{$entry.dislikes_count} Disikes</div>
                                     <div class="actionBar-action">{$entry.replies_count} Replies</div>
                                 </div>
-                                    <div class="actionBar-set actionBar-set--internal">
-                                        <xf:set var="$like_prefix" value="{{ $entry->getUserReaction() == 'like' ? 'fa ' : '' }}" />
-                                        <xf:set var="$dislike_prefix" value="{{ $entry->getUserReaction() == 'dislike' ? 'fa ' : '' }}" />
-                                        <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="{$like_prefix}fa-thumbs-up"/></a>
-                                        <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action"  title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
-                                        <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Reply"><xf:fa icon="fa-reply"/></a>
-                                        <!-- <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a> -->
-                                    </div>
+                                <div class="actionBar-set actionBar-set--internal">
+                                    <xf:set var="$like_prefix" value="{{ $entry->getUserReaction() == 'like' ? 'fa ' : '' }}" />
+                                    <xf:set var="$dislike_prefix" value="{{ $entry->getUserReaction() == 'dislike' ? 'fa ' : '' }}" />
+                                    <a href="{{ link('feed/like', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Like"><xf:fa icon="{$like_prefix}fa-thumbs-up"/></a>
+                                    <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action"  title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
+                                    <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Reply"><xf:fa icon="fa-reply"/></a>
+                                    <!-- <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a> -->
+                                </div>
                             </div>
-                    </div>
+                        </div>
                     </xf:if>
                 </div>
             </div>
         </div>
-        <div class="feed-seperator" /></div>
+        <div class="feed-seperator"></div>
     </div>
 </xf:macro>
 
