@@ -2,6 +2,7 @@
 
 <xf:css src="feed.less" />
 <xf:css src="bb_code.less" />
+<xf:css src="message.less" />
 
 <xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
     <div class="feed-entry-container">
@@ -65,7 +66,7 @@
                             </ul>
                         </header>
 
-                        <xf:if is="{{$showOriginal}}">
+                        <xf:if is="{{$showOriginal && !$entry.deleted}}">
                             <xf:if is="{{$entry.Original.entry_id > 0}}">
                                 <xf:macro name="reply_preview"
                                     arg-entry="{$entry.Original}"
@@ -74,11 +75,18 @@
                             </xf:if>
                         </xf:if>
 
-                        <article class="message-body" style="padding-bottom:5px;">
-                           {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
-                        </article>
+                        <xf:if is="{{!$entry.deleted}}">
+                            <article class="message-body" style="padding-bottom:5px;">
+                            {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+                            </article>
+                        <xf:else/>
+                            <xf:macro 
+                                name="entry_deleted_notice"
+                                arg-entry="{{$entry}}"
+                            />
+                        </xf:if>
                     </div>
-                    <xf:if is="{{!$preview}}">
+                    <xf:if is="{{!$preview && !$entry.deleted}}">
                         <div class="message-footer">
                             <div class="message-actionBar actionBar">
                                 <div class="actionBar-set actionBar-set--external">
@@ -114,7 +122,21 @@
         </div>
 
         <div class="bbCodeBlock-content">
-                {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+            {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
         </div>
     </blockquote>
+</xf:macro>
+
+<xf:macro name="entry_deleted_notice" arg-entry="!">
+    <div class="messageNotice messageNotice--deleted">
+        <ul class="listInline listInline--bullet listInline--selfInline">
+            <li>{{ phrase('deleted_by_x', {'name': $entry.EntryDeleted.User.username ?: phrase('n_a')}) }}</li>
+            <xf:if is="{$entry.EntryDeleted}">
+                <li><xf:date time="{$entry.EntryDeleted.date}" /></li>
+                <xf:if is="{$entry.EntryDeleted.reason}">
+                    <li>{{ phrase('reason:') }} {$entry.EntryDeleted.reason}</li>
+                </xf:if>
+            </xf:if>
+        </ul>
+    </div>
 </xf:macro>

@@ -91,13 +91,16 @@ public static function getStructure(Structure $structure)
             'comment' => ['type' => self::STR, 'required' => true, 'maxLength' => 255],
             'date' => ['type' => self::UINT, 'default' => time()],
             'reply_to' => ['type' => self::UINT, 'required' => false, 'default' => 0],
+            'deleted' => ['type' => self::BOOL, 'required' => true, 'default' => false],
         ];
+
     $structure->getters = 
         [
             'likes_count' => true,
             'dislikes_count' => true,
             'replies_count' => true
         ];
+
     $structure->relations['User'] = 
         [
             'entity' => 'XF:User',

@@ -4,7 +4,7 @@ namespace lulzapps\Feed\Entity;
 
 use XF\Mvc\Entity\Structure;
 
-class Reaction extends \XF\Mvc\Entity\Entity
+class EntryDeleted extends \XF\Mvc\Entity\Entity
 {
 
 public static function getStructure(Structure $structure)

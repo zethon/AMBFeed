@@ -17,8 +17,9 @@ class Entry extends Repository
         $finder = $this->finder('lulzapps\Feed:Entry');
         $finder
             ->setDefaultOrder('date', 'DESC')
-            ->with('User')
+            ->with('User', false)
             ->with('Original', false)
+            ->with('EntryDeleted', false)
             ->limitByPage($page, $perPage);
 
         return $finder;
