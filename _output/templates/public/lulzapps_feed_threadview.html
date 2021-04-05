@@ -67,7 +67,7 @@
     </div>
 </div>
 <br/>
-<xf:foreach loop="$entry.Replies" value="$reply">
+<xf:foreach loop="{{$entry.getReplies()}}" value="$reply">
     <xf:macro 
         template="lulzapps_feed_view"
         name="entry_block"

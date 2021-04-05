@@ -17,12 +17,12 @@
     "public/lulzapps_feed_threadview.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "d21f67edf04b18bfb72673a14fe738e7"
+        "hash": "a422836b49df322f8dc9bb63013efeaa"
     },
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "d6274d24aa9d8d716e52ff466bc640ec"
+        "hash": "5e7a5883828401ecca8603a06cb76eab"
     },
     "public/lulzapps_reply_overlay.html": {
         "version_id": 1000010,

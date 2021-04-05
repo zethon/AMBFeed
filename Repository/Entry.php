@@ -18,7 +18,6 @@ class Entry extends Repository
         $finder
             ->setDefaultOrder('date', 'DESC')
             ->with('User', false)
-            ->with('Original', false)
             ->with('EntryDeleted', false)
             ->limitByPage($page, $perPage);
 

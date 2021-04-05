@@ -58,6 +58,19 @@ public function getRepliesCount()
     $this->entry_id);
 }
 
+public function getReplies()
+{
+    $finder = $this->finder('lulzapps\Feed:Entry');
+    $finder
+        ->setDefaultOrder('date', 'DESC')
+        ->with('User', false)
+        // ->with('Original', false)
+        ->with('EntryDeleted', false)
+        ->where('reply_to', $this->entry_id);
+
+    return $finder;
+}
+
 public function canDelete($type = 'soft', &$error = null)
 {
     $visitor = \XF::visitor();
@@ -98,7 +111,8 @@ public static function getStructure(Structure $structure)
         [
             'likes_count' => true,
             'dislikes_count' => true,
-            'replies_count' => true
+            'replies_count' => true,
+            'replies' => true
         ];
 
     $structure->relations['User'] = 
@@ -113,13 +127,6 @@ public static function getStructure(Structure $structure)
             'entity' => 'lulzapps\Feed:Entry',
             'type' => self::TO_ONE,
             'conditions' => [ ['entry_id', '=', '$reply_to'] ],
-            'primary' => true
-        ];
-    $structure->relations['Replies'] = 
-        [
-            'entity' => 'lulzapps\Feed:Entry',
-            'type' => self::TO_MANY,
-            'conditions' => [ ['reply_to', '=', '$entry_id'] ],
             'primary' => true
         ];
     $structure->relations['EntryDeleted'] = 
