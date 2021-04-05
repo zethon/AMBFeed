@@ -115,7 +115,25 @@ public function actionDelete()
 
     if ($this->isPost())
     {
-        $type = $this->filter('hard_delete', 'uint') ? 'hard' : 'soft';
+        # $type = $this->filter('hard_delete', 'uint') ? 'hard' : 'soft';
+
+        $input = $this->filter(
+            [
+                'entry_id' => 'uint',
+                'user_id' => 'uint',
+                'reason' => 'str'
+            ]);
+            
+        $input['entry_id'] = $entry_id;
+        $input['user_id'] = (\XF::visitor())->user_id;
+        $input['reason'] = $this->filter('reason', 'str');
+
+        $reaction = $this->em()->create('lulzapps\Feed:EntryDeleted');
+        $form = $this->formAction();
+        $form->basicEntitySave($reaction, $input)->run();
+
+        $entry->fastUpdate('deleted', true);
+
         $returnUrl = $this->buildLink('feed');
         return $this->redirect($returnUrl, "The message as been deleted");
     }
