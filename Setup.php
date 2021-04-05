@@ -26,6 +26,7 @@ class Setup extends \XF\AddOn\AbstractSetup
                 $table->addColumn('comment', 'varchar', 255)->setDefault('');
                 $table->addColumn('date', 'int');
                 $table->addColumn('reply_to', 'int');
+                $table->addColumn('deleted', 'bool');
                 $table->addPrimaryKey('entry_id');
             });
     }
@@ -41,6 +42,20 @@ class Setup extends \XF\AddOn\AbstractSetup
                 $table->addColumn('date', 'int');
                 $table->addColumn('reaction', 'varchar', 8)->setDefault('');
                 $table->addPrimaryKey('entry_reaction_id');
+            });
+    }
+
+    public function installStep3()
+    {
+        $this->schemaManager()->createTable('lulzapps_feed_entry_deleted', 
+            function(Create $table)
+            {
+                $table->addColumn('entry_deleted_id', 'int');
+                $table->addColumn('entry_id', 'int');
+                $table->addColumn('user_id', 'int');
+                $table->addColumn('date', 'int');
+                $table->addColumn('reason', 'varchar', 120)->setDefault('');
+                $table->addPrimaryKey('entry_deleted_id');
             });
     }
 }

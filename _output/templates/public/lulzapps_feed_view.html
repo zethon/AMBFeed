@@ -29,7 +29,7 @@
     <br/>
  
     <xf:foreach loop="$feedEntries" value="$feedEntry">
-        <xf:macro name="entry_block2"
+        <xf:macro name="entry_block"
             arg-entry="{$feedEntry}"
             arg-user="{$feedEntry.User}"
             arg-preview="{{false}}"
@@ -39,7 +39,7 @@
     <div class="blockMessage">The feed is empty!</div>
 </xf:if>
 
-<xf:macro name="entry_block2" arg-entry="!" arg-user="!" arg-preview="{{false}}" arg-showOriginal="{{true}}">
+<xf:macro name="entry_block" arg-entry="!" arg-user="!" arg-preview="{{false}}" arg-showOriginal="{{true}}">
     <div class="feed-entry-container">
         <div class="message-inner">
             <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
@@ -93,6 +93,9 @@
                                     <a href="{{ link('feed/dislike', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action"  title="Dislike"><xf:fa icon="{$dislike_prefix}fa-thumbs-down"/></a>
                                     <a href="{{ link('feed/reply', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Reply"><xf:fa icon="fa-reply"/></a>
                                     <!-- <a href="{{ link('feed/discuss', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" title="Discuss"><xf:fa icon="fa-newspaper"/></a> -->
+                                    <xf:if is="{$entry.canDelete()}">
+                                        <a href="{{ link('feed/delete', null, {'entry_id':$entry.entry_id}) }}" class="actionBar-action" data-xf-click="overlay" title="Delete"><xf:fa icon="fa-delete"/>Delete</a>
+                                    </xf:if>
                                 </div>
                             </div>
                         </div>

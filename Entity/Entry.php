@@ -58,10 +58,30 @@ public function getRepliesCount()
     $this->entry_id);
 }
 
+public function canDelete($type = 'soft', &$error = null)
+{
+    $visitor = \XF::visitor();
+    if (!$visitor->user_id)
+    {
+        return false;
+    }
+
+    if ($visitor->user_id == $this->user_id)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+public function canHardDelete()
+{
+    return false;
+}
+
 public static function getStructure(Structure $structure)
 {
     $structure->table = 'lulzapps_feed_entry';
-    // $structure->shortName = 'lulzapps\Feed:Feed';
     $structure->primaryKey = 'entry_id';
     $structure->contentType = 'lulzapps_feed_entry';
     $structure->columns = 
@@ -97,6 +117,13 @@ public static function getStructure(Structure $structure)
             'entity' => 'lulzapps\Feed:Entry',
             'type' => self::TO_MANY,
             'conditions' => [ ['reply_to', '=', '$entry_id'] ],
+            'primary' => true
+        ];
+    $structure->relations['EntryDeleted'] = 
+        [
+            'entity' => 'lulzapps\Feed:EntryDeleted',
+            'type' => self::TO_ONE,
+            'conditions' => 'entry_id',
             'primary' => true
         ];
 

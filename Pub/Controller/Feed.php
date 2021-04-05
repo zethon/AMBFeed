@@ -99,6 +99,38 @@ public function actionDiscuss()
     return $this->message('actionDiscuss: ' . $entry_id);
 }
 
+public function actionDelete()
+{
+    $entry_id = $this->filter('entry_id', 'uint');
+    $finder = $this->finder('lulzapps\Feed:Entry');
+    $finder
+        ->with('User')
+        ->where('entry_id', $entry_id);
+
+    $entry = $finder->fetchOne();
+    if (!$entry->canDelete())
+    {
+        return $this->noPermission("You do not have permission to do that");
+    }
+
+    if ($this->isPost())
+    {
+        $type = $this->filter('hard_delete', 'uint') ? 'hard' : 'soft';
+        $returnUrl = $this->buildLink('feed');
+        return $this->redirect($returnUrl, "The message as been deleted");
+    }
+    else
+    {
+        $confirmUrl = $this->buildLink('feed/delete', null);
+        $viewParams = 
+            [
+                'entry' => $entry,
+                'confirmUrl' => $confirmUrl
+            ];
+        return $this->view('lulzapps\Feed:EntryDelete', 'lulzapps_feed_entry_delete', $viewParams);
+    }
+}
+
 // http://localhost/index.php?feed/submit
 public function actionSubmit()
 {

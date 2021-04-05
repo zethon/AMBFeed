@@ -9,6 +9,11 @@
         "version_string": "1.0.0 Alpha",
         "hash": "f91fbf5ee90b248967f1379fceacd1ed"
     },
+    "public/lulzapps_feed_entry_delete.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "af4037c9e6e3b2807800af5ccad33e73"
+    },
     "public/lulzapps_feed_threadview.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -17,7 +22,7 @@
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "f04e095bd5b443f604b5bf6abb0bb4bc"
+        "hash": "cf3fceb692bb86ca9a25f7a80931a1c2"
     },
     "public/lulzapps_reply_overlay.html": {
         "version_id": 1000010,

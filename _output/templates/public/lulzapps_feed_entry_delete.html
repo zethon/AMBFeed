@@ -1,0 +1,12 @@
+<xf:title>Delete message</xf:title>
+
+<xf:form action="{$confirmUrl}" class="block" ajax="true">
+    <xf:hiddenval name="entry_id">{$entry.entry_id}</xf:hiddenval>
+	<div class="block-container">
+		<div class="block-body">
+			<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="{{$entry.canHardDelete()}}" />
+		</div>
+		<xf:submitrow icon="delete" sticky="true" />
+	</div>
+	<xf:redirect />
+</xf:form>
