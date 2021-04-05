@@ -61,7 +61,7 @@ public function getRepliesCount()
 public static function getStructure(Structure $structure)
 {
     $structure->table = 'lulzapps_feed_entry';
-    $structure->shortName = 'lulzapps\Feed:Feed';
+    // $structure->shortName = 'lulzapps\Feed:Feed';
     $structure->primaryKey = 'entry_id';
     $structure->contentType = 'lulzapps_feed_entry';
     $structure->columns = 

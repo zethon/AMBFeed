@@ -10,7 +10,7 @@ class Entry extends Repository
     /**
      * @return Finder
      */
-    public function findEntriesForFeedView()
+    public function findEntriesForFeedView($page = 1, $perPage = 20)
     {
         $visitor = \XF::visitor();
 
@@ -18,7 +18,8 @@ class Entry extends Repository
         $finder
             ->setDefaultOrder('date', 'DESC')
             ->with('User')
-            ->with('Original', false);
+            ->with('Original', false)
+            ->limitByPage($page, $perPage);
 
         return $finder;
     }

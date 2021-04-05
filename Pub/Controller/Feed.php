@@ -137,13 +137,18 @@ public function actionSubmit()
 
 public function actionIndex()
 {
+    $page = $this->filter('page', 'uint');
+    $perPage = $this->options()->discussionsPerPage;
+
     $repo = $this->repository('lulzapps\Feed:Entry');
-    $finder = $repo->findEntriesForFeedView();
+    $finder = $repo->findEntriesForFeedView($page, $perPage);
 
     $viewParams = 
         [ 
             'feedEntries' => $finder->fetch(),
-            'submitUrl' => $this->buildLink('feed/submit')
+            'submitUrl' => $this->buildLink('feed/submit'),
+            'page' => $page,
+            'perPage' => $perPage
         ];
 
     return $this->view('lulzapps\Feed:View', 'lulzapps_feed_view', $viewParams);

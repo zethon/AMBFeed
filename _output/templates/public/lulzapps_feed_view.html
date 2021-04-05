@@ -1,6 +1,7 @@
 <xf:page option="template">FEED_CONTAINER</xf:page>
 
 <xf:css src="feed.less" />
+<xf:css src="bb_code.less" />
 
 <xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
     <div class="feed-entry-container">
@@ -18,6 +19,17 @@
 </xf:form>
 
 <xf:if is="$feedEntries is not empty">
+    <xf:pagenav
+        page="{$page}" 
+        perpage="{$perPage}" 
+        total="21"
+        link="feed" 
+        data="123" 
+        params="abxx"
+        wrapperclass="feed-pagination-container" />
+        
+    <br/>
+ 
     <xf:foreach loop="$feedEntries" value="$feedEntry">
         <xf:macro name="entry_block2"
             arg-entry="{$feedEntry}"
@@ -28,7 +40,6 @@
 <xf:else />
     <div class="blockMessage">The feed is empty!</div>
 </xf:if>
-
 
 <xf:macro name="entry_block2" arg-entry="!" arg-user="!" arg-preview="{{false}}">
     <div class="feed-entry-container">
@@ -56,6 +67,13 @@
                                 </li>
                             </ul>
                         </header>
+
+                        <xf:if is="{{$entry.Original.entry_id > 0}}">
+                            <xf:macro name="reply_preview"
+                                arg-entry="{$entry.Original}"
+                                arg-user="{$entry.Original.User}"
+                                arg-preview="{{true}}"/>
+                        </xf:if>
 
                         <article class="message-body" style="padding-bottom:5px;">
                            {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
@@ -86,4 +104,16 @@
         </div>
     </div>
     <br/>
+</xf:macro>
+
+<xf:macro name="reply_preview" arg-entry="!" arg-user="!">
+    <blockquote class="bbCodeBlock bbCodeBlock--expandable bbCodeBlock--quote">
+        <div class="bbCodeBlock-title">
+                <a href="" class="bbCodeBlock-sourceJump" data-xf-click="attribution" data-content-selector="">{{$user.username}} said:</a>
+        </div>
+
+        <div class="bbCodeBlock-content">
+                {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+        </div>
+    </blockquote>
 </xf:macro>
