@@ -187,6 +187,13 @@ public function actionSubmit()
 
 public function actionThreadView()
 {
+    $visitor = \XF::visitor();
+    if (!$visitor->user_id)
+    {
+        $returnUrl = $this->buildLink('register');
+        return $this->redirect($returnUrl);
+    }
+    
     $entry_id = $this->filter('entry_id', 'uint');
     $finder = $this->finder('lulzapps\Feed:Entry');
     $finder
@@ -206,6 +213,13 @@ public function actionThreadView()
 
 public function actionIndex()
 {
+    $visitor = \XF::visitor();
+    if (!$visitor->user_id)
+    {
+        $returnUrl = $this->buildLink('register');
+        return $this->redirect($returnUrl);
+    }
+
     $page = $this->filter('page', 'uint');
     $perPage = $this->options()->discussionsPerPage;
 

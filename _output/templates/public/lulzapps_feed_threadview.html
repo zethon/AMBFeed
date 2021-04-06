@@ -4,45 +4,55 @@
 <xf:css src="feed.less" />
 <xf:css src="bb_code.less" />
 
-<br/>
-
 <div class="feed-entry-container">
+    <div class="message-cell message-cell--main">
+        <a href="{{ link('feed') }}"><xf:fa icon="fa-arrow-left"/>&nbsp;&nbsp;Return to Feed</a>
+    </div>
+
     <div class="message-inner">
-            <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
-                <div class="message-avatar-wrapper">
-                    <xf:avatar user="$entry.User" size="s" defaultname="{$entry.User.username}" itemprop="image" />
-                </div>
+        <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
+            <div class="message-avatar-wrapper">
+                <xf:avatar user="$entry.User" size="s" defaultname="{$entry.User.username}" itemprop="image" />
             </div>
+        </div>
 
-            <div class="message-cell message-cell--main">
-                <div class="message-main js-quickEditTarget">
-                    <div class="message-content js-messageContent">
-                        <header class="message-attribution message-attribution--plain">
-                            <ul class="listInline listInline--bullet">
-                                <li class="message-attribution-user">
-                                    <xf:avatar user="$entry.User" size="xxs" />
-                                    <h4 class="attribution">
-                                        <xf:username user="$entry.User" rich="true" />
-                                    </h4>
-                                </li>
-                                <li>
-                                    <a href="{{ link('feed/threadview', null, {'entry_id':$entry.entry_id}) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
-                                </li>
-                            </ul>
-                        </header>
+        <div class="message-cell message-cell--main">
+            <div class="message-main js-quickEditTarget">
+                <div class="message-content js-messageContent">
+                    <header class="message-attribution message-attribution--plain">
+                        <ul class="listInline listInline--bullet">
+                            <li class="message-attribution-user">
+                                <xf:avatar user="$entry.User" size="xxs" />
+                                <h4 class="attribution">
+                                    <xf:username user="$entry.User" rich="true" />
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="{{ link('feed/threadview', null, {'entry_id':$entry.entry_id}) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
+                            </li>
+                        </ul>
+                    </header>
 
-                        <xf:if is="{{$entry.Original.entry_id > 0}}">
-                            <xf:macro 
-                                template="lulzapps_feed_view" 
-                                name="reply_preview"
-                                arg-entry="{$entry.Original}"
-                                arg-user="{$entry.Original.User}"
-                                arg-preview="{{true}}"/>
-                        </xf:if>
+                    <xf:if is="{{!$entry.deleted && $entry.Original.entry_id > 0}}">
+                        <xf:macro 
+                            template="lulzapps_feed_view" 
+                            name="reply_preview"
+                            arg-entry="{$entry.Original}"
+                            arg-user="{$entry.Original.User}"
+                            arg-preview="{{true}}"/>
+                    </xf:if>
 
-                    <article class="message-body" style="padding-bottom:5px;">
-                       {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
-                    </article>
+                    <xf:if is="{{!$entry.deleted}}">
+                        <article class="message-body" style="padding-bottom:5px;">
+                        {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+                        </article>
+                    <xf:else/>
+                        <xf:macro
+                            template="lulzapps_feed_view"
+                            name="entry_deleted_notice"
+                            arg-entry="{{$entry}}"
+                        />
+                    </xf:if>
                 </div>
 
                 <div class="message-footer">
@@ -66,7 +76,9 @@
         </div>
     </div>
 </div>
+
 <br/>
+
 <xf:foreach loop="{{$entry.getReplies()}}" value="$reply">
     <xf:macro 
         template="lulzapps_feed_view"
