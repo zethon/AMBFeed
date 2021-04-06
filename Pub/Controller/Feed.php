@@ -220,10 +220,11 @@ public function actionIndex()
         return $this->redirect($returnUrl);
     }
 
+    $repo = $this->repository('lulzapps\Feed:Entry');
+
     $page = $this->filter('page', 'uint');
     $perPage = $this->options()->discussionsPerPage;
 
-    $repo = $this->repository('lulzapps\Feed:Entry');
     $finder = $repo->findEntriesForFeedView($page, $perPage);
 
     $viewParams = 
@@ -231,7 +232,8 @@ public function actionIndex()
             'feedEntries' => $finder->fetch(),
             'submitUrl' => $this->buildLink('feed/submit'),
             'page' => $page,
-            'perPage' => $perPage
+            'perPage' => $perPage,
+            'totalCount' => $repo->getEntryCount()
         ];
 
     return $this->view('lulzapps\Feed:View', 'lulzapps_feed_view', $viewParams);

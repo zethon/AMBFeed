@@ -7,9 +7,12 @@ use XF\Mvc\Entity\Repository;
 
 class Entry extends Repository
 {
-    /**
-     * @return Finder
-     */
+
+    public function getEntryCount()
+    {
+        return $this->db()->fetchOne("SELECT COUNT(*) FROM lulzapps_feed_entry");
+    }
+
     public function findEntriesForFeedView($page = 1, $perPage = 20)
     {
         $visitor = \XF::visitor();
