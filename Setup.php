@@ -21,7 +21,7 @@ class Setup extends \XF\AddOn\AbstractSetup
         $this->schemaManager()->createTable('lulzapps_feed_entry', 
             function(Create $table)
             {
-                $table->addColumn('entry_id', 'int');
+                $table->addColumn('entry_id', 'int')->autoIncrement();
                 $table->addColumn('user_id', 'int');
                 $table->addColumn('comment', 'varchar', 255)->setDefault('');
                 $table->addColumn('date', 'int');
@@ -36,7 +36,7 @@ class Setup extends \XF\AddOn\AbstractSetup
         $this->schemaManager()->createTable('lulzapps_feed_reaction', 
             function(Create $table)
             {
-                $table->addColumn('entry_reaction_id', 'int');
+                $table->addColumn('entry_reaction_id', 'int')->autoIncrement();
                 $table->addColumn('entry_id', 'int');
                 $table->addColumn('user_id', 'int');
                 $table->addColumn('date', 'int');
@@ -50,7 +50,7 @@ class Setup extends \XF\AddOn\AbstractSetup
         $this->schemaManager()->createTable('lulzapps_feed_entry_deleted', 
             function(Create $table)
             {
-                $table->addColumn('entry_deleted_id', 'int');
+                $table->addColumn('entry_deleted_id', 'int')->autoIncrement();
                 $table->addColumn('entry_id', 'int');
                 $table->addColumn('user_id', 'int');
                 $table->addColumn('date', 'int');
