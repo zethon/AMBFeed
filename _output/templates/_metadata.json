@@ -7,7 +7,7 @@
     "public/feed.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "f91fbf5ee90b248967f1379fceacd1ed"
+        "hash": "edaec462a03f7b0c4fb3bb6d547b599a"
     },
     "public/lulzapps_feed_entry_delete.html": {
         "version_id": 1000010,
@@ -17,12 +17,12 @@
     "public/lulzapps_feed_threadview.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "fc700fd63829236b166d89918cd70c93"
+        "hash": "323473f834210bbddd8daf57b86a65e2"
     },
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "f3f926232c06eee50a5ed71c97ced66c"
+        "hash": "36d951e9cb7c6945b122426e3d2d18e0"
     },
     "public/lulzapps_reply_overlay.html": {
         "version_id": 1000010,

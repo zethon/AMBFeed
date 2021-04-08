@@ -5,7 +5,7 @@
 <xf:css src="message.less" />
 
 <xf:form action="{$submitUrl}" class="block" ajax="true" data-skip-overlay-redirect="false">
-    <div class="feed-entry-container">
+    <div class="feed-content feed-entry-container">
         <div class="block-body">
             <xf:macro template="quick_reply_macros" name="body"
                 arg-placeholder="What's happening?"
@@ -25,7 +25,7 @@
         perpage="{$perPage}" 
         total="{$totalCount}"
         link="feed" 
-        wrapperclass="feed-pagination-container" />
+        wrapperclass="feed-content" />
         
     <br/>
  
@@ -41,17 +41,17 @@
 </xf:if>
 
 <xf:macro name="entry_block" arg-entry="!" arg-user="!" arg-preview="{{false}}" arg-showOriginal="{{true}}">
-    <div class="feed-entry-container">
+    <div class="feed-content feed-entry-container">
         <div class="message-inner">
-            <div class="message-avatar" style="padding-left:5px; padding-top:5px;">
+            <div class="message-avatar" style="padding-left:5px; padding-top:5px; padding-bottom: 0px;">
                 <div class="message-avatar-wrapper">
                     <xf:avatar user="$user" size="s" defaultname="{$user.username}" itemprop="image" />
                 </div>
             </div>
 
-            <div class="message-cell message-cell--main">
-                <div class="message-main js-quickEditTarget">
-                    <div class="message-content js-messageContent">
+            <div class="message-cell">
+                <div class="message-main">
+                    <div class="message-content">
                         <header class="message-attribution message-attribution--plain">
                             <ul class="listInline listInline--bullet">
                                 <li class="message-attribution-user">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="feed-seperator"></div>
+        <div class="feed-content feed-seperator"></div>
     </div>
 </xf:macro>
 
