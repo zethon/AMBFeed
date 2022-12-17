@@ -3,7 +3,7 @@
     "title": "lulzapps - Feed",
     "description": "Add a Twitter-like feed to xenForo",
     "version_id": 1000010,
-    "version_string": "1.0.0 Alpha",
+    "version_string": "0.0.1",
     "dev": "Adalid Claure",
     "dev_url": "https://github.com/zethon/XenFeed",
     "faq_url": "",
