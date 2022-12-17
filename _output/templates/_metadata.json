@@ -1,32 +1,32 @@
 {
     "public/FEED_CONTAINER.html": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "b85586ce0cde2d2cae9fe925a5a6e5f4"
     },
     "public/feed.less": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "edaec462a03f7b0c4fb3bb6d547b599a"
     },
     "public/lulzapps_feed_entry_delete.html": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "af4037c9e6e3b2807800af5ccad33e73"
     },
     "public/lulzapps_feed_threadview.html": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "323473f834210bbddd8daf57b86a65e2"
     },
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "36d951e9cb7c6945b122426e3d2d18e0"
     },
     "public/lulzapps_reply_overlay.html": {
         "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
+        "version_string": "0.0.1",
         "hash": "fb605687d757984a94390f7e627ae29c"
     }
 }
