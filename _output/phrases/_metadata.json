@@ -4,5 +4,17 @@
         "version_id": 1000010,
         "version_string": "0.0.1",
         "hash": "a80425472d94ae02c836da5b6f205b7b"
+    },
+    "widget_def.lz_feed_preview.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "0.0.1",
+        "hash": "0095aa70303510e20939465e99c0ce37"
+    },
+    "widget_def_desc.lz_feed_preview.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "0.0.1",
+        "hash": "019ed23af722a41b7d09a63cbf795633"
     }
 }

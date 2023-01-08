@@ -28,5 +28,10 @@
         "version_id": 1000010,
         "version_string": "0.0.1",
         "hash": "431d1bca5a127fb94e770e9973fee86c"
+    },
+    "public/lz_feed_preview_template.html": {
+        "version_id": 1000010,
+        "version_string": "0.0.1",
+        "hash": "06fb8c8b3dff0e71ed0c68aedacbe32b"
     }
 }
