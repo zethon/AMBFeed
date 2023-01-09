@@ -11,21 +11,13 @@ class FeedPreview extends AbstractWidget
      */
     public function render()
     {
-        // if (empty($this->contextParams['user'])) 
-        // {
-        //     return false;
-        // }
-        // /** @var \XF\Entity\User $user */
-        // $user = $this->contextParams['user'];
-
-        // $reactionsCache = $this->app->container('reactions');
-
-        // $reactionRepository = $this->getReactionRepository();
-        // $sentCounts = $reactionRepository->countReactionsForReactionUserIdTHReactPlus($user->user_id);
-        // $receivedCounts = $reactionRepository->countReactionsForContentUserIdTHReactPlus($user->user_id);
-
-        $viewParams = [
-        ];
+        $repo = $this->repository('lulzapps\Feed:Entry');
+        $finder = $repo->findEntriesForFeedWidget();
+        $viewParams = 
+            [ 
+                'feedEntries' => $finder->fetch(),
+            ];
+    
         return $this->renderer('lz_feed_preview_template', $viewParams);
     }
 }

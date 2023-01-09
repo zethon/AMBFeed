@@ -1,7 +1,55 @@
 <div class="block">
 	<div class="block-container">
 		<h3 class="block-minorHeader">
-			Latest Feeds
+			<a href="{{ link('feed', null, []) }}">Latest Feeds</a>
 		</h3>
+	
+	
+<xf:foreach loop="$feedEntries" value="$feedEntry">
+	<xf:macro name="entry_block"
+            arg-entry="{$feedEntry}"
+            arg-user="{$feedEntry.User}"
+            arg-preview="{{true}}"
+        />
+	
+</xf:foreach>	
+	
 	</div>
 </div>
+	
+<xf:macro name="entry_block" arg-entry="!" arg-user="!" arg-preview="{{false}}" arg-showOriginal="{{true}}">
+    <div class="feed-content feed-entry-container">
+        <div class="message-inner">
+            <div class="message-cell">
+                <div class="message-main">
+                    <div class="message-content">
+
+                        <div class="node-extra">
+                            <div class="node-extra-icon">
+                                <xf:avatar user="$user" size="xxs" />
+                            </div>
+                            <div class="node-extra-row">
+                                <xf:username user="$user" rich="true" />
+                            </div>
+                            <div class="node-extra-row">
+                                <a href="{{ link('feed/threadview', null, {'entry_id':$entry.entry_id}) }}" class="u-concealed" rel="nofollow"><xf:date time="$entry.date" /></a>
+                            </div>
+
+                            <xf:if is="{{!$entry.deleted}}">
+                                <article class="message-body" style="padding-bottom:5px;">
+                                {{ bb_code($entry.comment, 'lulzapps_feed_entry', $entry) }}
+                                </article>
+                            <xf:else/>
+                                <xf:macro 
+                                    name="entry_deleted_notice"
+                                    arg-entry="{{$entry}}"
+                                />
+                            </xf:if>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</xf:macro>
