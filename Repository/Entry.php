@@ -15,14 +15,24 @@ class Entry extends Repository
 
     public function findEntriesForFeedView($page = 1, $perPage = 20)
     {
-        $visitor = \XF::visitor();
-
         $finder = $this->finder('lulzapps\Feed:Entry');
         $finder
             ->setDefaultOrder('date', 'DESC')
             ->with('User', false)
             ->with('EntryDeleted', false)
             ->limitByPage($page, $perPage);
+
+        return $finder;
+    }
+
+    public function findEntriesForFeedWidget()
+    {
+        $finder = $this->finder('lulzapps\Feed:Entry');
+        $finder
+            ->setDefaultOrder('date', 'DESC')
+            ->with('User', false)
+            ->with('EntryDeleted', false)
+            ->limit(3);
 
         return $finder;
     }

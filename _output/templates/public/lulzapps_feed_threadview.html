@@ -4,7 +4,7 @@
 <xf:css src="feed.less" />
 <xf:css src="bb_code.less" />
 
-<div class="feed-content feed-entry-container">
+<div class="feed-entry-container">
     <div class="message-cell message-cell--main">
         <a href="{{ link('feed') }}"><xf:fa icon="fa-arrow-left"/>&nbsp;&nbsp;Return to Feed</a>
     </div>
@@ -59,7 +59,7 @@
                     <div class="message-actionBar actionBar">
                         <div class="actionBar-set actionBar-set--external">
                             <div class="actionBar-action">{$entry.likes_count} Likes</div>
-                            <div class="actionBar-action">{$entry.dislikes_count} Disikes</div>
+                            <div class="actionBar-action">{$entry.dislikes_count} Dislikes</div>
                             <div class="actionBar-action">{$entry.replies_count} Replies</div>
                         </div>
                             <div class="actionBar-set actionBar-set--internal">

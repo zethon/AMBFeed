@@ -1,4 +1,9 @@
 {
+    "admin/widget_def_options_lz_feed_preview.html": {
+        "version_id": 1000201,
+        "version_string": "0.0.2-1",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
     "public/FEED_CONTAINER.html": {
         "version_id": 1000010,
         "version_string": "0.0.1",
@@ -17,16 +22,21 @@
     "public/lulzapps_feed_threadview.html": {
         "version_id": 1000010,
         "version_string": "0.0.1",
-        "hash": "323473f834210bbddd8daf57b86a65e2"
+        "hash": "ab44cec2da85b338cd19084b355d73b8"
     },
     "public/lulzapps_feed_view.html": {
         "version_id": 1000010,
         "version_string": "0.0.1",
-        "hash": "36d951e9cb7c6945b122426e3d2d18e0"
+        "hash": "66f2e8aa6fb2a4c8b0c8387a9517a073"
     },
     "public/lulzapps_reply_overlay.html": {
         "version_id": 1000010,
         "version_string": "0.0.1",
-        "hash": "fb605687d757984a94390f7e627ae29c"
+        "hash": "431d1bca5a127fb94e770e9973fee86c"
+    },
+    "public/lz_feed_preview_template.html": {
+        "version_id": 1000201,
+        "version_string": "0.0.2-1",
+        "hash": "fce3b4bdd09d7c9433f2cfacbb053470"
     }
 }
