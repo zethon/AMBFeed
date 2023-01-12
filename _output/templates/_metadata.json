@@ -35,8 +35,8 @@
         "hash": "431d1bca5a127fb94e770e9973fee86c"
     },
     "public/lz_feed_preview_template.html": {
-        "version_id": 1000201,
-        "version_string": "0.0.2-1",
-        "hash": "fce3b4bdd09d7c9433f2cfacbb053470"
+        "version_id": 1000010,
+        "version_string": "0.0.1",
+        "hash": "718a97a9fba721e20d3f279d469dbcca"
     }
 }
